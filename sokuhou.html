@@ -45,23 +45,34 @@
   <audio id="alert" src="assets/alert_loop.mp3" autoplay loop></audio>
   <audio id="announce" src="assets/fart_announcement.mp3"></audio>
 
-  <script>
-    // テロップ風メッセージ切り替え
-    const message = document.getElementById("message");
-    const announce = document.getElementById("announce");
-    const alert = document.getElementById("alert");
+ <script>
+  const alert = document.getElementById("alert");
+  const announce = document.getElementById("announce");
+  const message = document.getElementById("message");
 
-    setTimeout(() => {
-      // 警報切って、アナウンス再生
-      alert.pause();
-      announce.play();
-      message.textContent = `
-午後8時10分ごろ、和室で強い放屁がありました。
+  // まず保存されたデータを読み取る
+  const fartData = JSON.parse(localStorage.getItem("fartData")) || {
+    time: "不明",
+    db: "???",
+    magnitude: "???"
+  };
+
+  const generatedMessage = `
+${fartData.time}ごろ、和室で強い放屁がありました。
 震源地は和室のピと推定されています。
-最大臭度6弱、屁グニチュードは7.2と観測されています。
+最大臭度${fartData.db}、屁グニチュードは${fartData.magnitude}と観測されています。
+繰り返します――
+最大臭度${fartData.db}、屁グニチュードは${fartData.magnitude}と観測されています。
 和室内にいるとゲボえの恐れがあります。今すぐ逃げてください！
-      `;
-    }, 8000); // 8秒後に切り替え（イントロ分）
-  </script>
+  `;
+
+  // テロップ差し替え＆音声再生切り替え
+  setTimeout(() => {
+    alert.pause();
+    announce.play();
+    message.textContent = generatedMessage;
+  }, 8000);
+</script>
+
 </body>
 </html>
