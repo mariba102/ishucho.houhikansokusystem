@@ -32,6 +32,15 @@ async function startFartDetection() {
       log(`音量(dB): ${db}`);
 
       if (db > 60) { // この値はテストで調整可
+  const now = new Date();
+  const timeStr = `${now.getHours()}時${now.getMinutes()}分`;
+
+  const fartInfo = {
+    time: timeStr,
+    db: db,
+    magnitude: (db / 10).toFixed(1) // 適当換算：例 72dB → 7.2
+  };
+  localStorage.setItem("fartData", JSON.stringify(fartInfo));
         log("🚨 放屁らしき音を検知ッ！緊急放屁速報発令します！");
         setTimeout(() => {
            window.location.href = "sokuhou.html";
