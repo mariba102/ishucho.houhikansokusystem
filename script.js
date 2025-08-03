@@ -34,7 +34,7 @@ async function startFartDetection() {
       if (db > 60) { // この値はテストで調整可
         log("🚨 放屁らしき音を検知ッ！緊急放屁速報発令します！");
         setTimeout(() => {
-          // window.location.href = "sokuhou.html";
+           window.location.href = "sokuhou.html";
         }, 1000);
       } else {
         requestAnimationFrame(detect);
