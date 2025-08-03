@@ -37,7 +37,7 @@ async function startFartDetection() {
 
   const fartInfo = {
     time: timeStr,
-    db: db,
+    db: smellLevel = Math.floor(db / 15),
     magnitude: (db / 10).toFixed(1) // 適当換算：例 72dB → 7.2
   };
   localStorage.setItem("fartData", JSON.stringify(fartInfo));
